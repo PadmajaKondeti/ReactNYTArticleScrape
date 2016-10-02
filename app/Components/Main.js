@@ -14,7 +14,7 @@ var Main = React.createClass({
 			searchTerm: "",
 			beginDate:"",
 			endDate:"",
-			results: {}
+			results: []
 		}
 	},
 
@@ -43,7 +43,9 @@ var Main = React.createClass({
 			var queryArr = httpRes.data.response.docs;
             var newResults = [];
             for(var i=0; i<queryArr.length; i++){
-              newResults.push(queryArr[i]);
+              newResults.push(queryArr[i].web_url);
+              //newResults = queryArr[0].web_url;
+              
             }
 
             self.setState({
@@ -75,7 +77,7 @@ var Main = React.createClass({
 		console.log(this.state.beginDate);
 		if (this.state.beginDate.trim() == "") this.state.beginDate="01012016";
 			
-		console.log(this.state.searendDatechTerm);
+		console.log(this.state.endDate);
 		if (this.state.endDate.trim() == "") this.state.endDate="10012016";
 			
 		this.getSearchResults(this.state.searchTerm, this.state.beginDate, this.state.endDate);

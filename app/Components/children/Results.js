@@ -5,7 +5,7 @@ var Results = React.createClass({
     return(
       <div>
   
-				{console.log("Results: ", this.props.articles)}
+        {this.props.articles}
 
       </div>
     )

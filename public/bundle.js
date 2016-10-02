@@ -19774,7 +19774,7 @@
 				searchTerm: "",
 				beginDate: "",
 				endDate: "",
-				results: {}
+				results: []
 			};
 		},
 
@@ -19798,7 +19798,8 @@
 				var queryArr = httpRes.data.response.docs;
 				var newResults = [];
 				for (var i = 0; i < queryArr.length; i++) {
-					newResults.push(queryArr[i]);
+					newResults.push(queryArr[i].web_url);
+					//newResults = queryArr[0].web_url;
 				}
 
 				self.setState({
@@ -19827,7 +19828,7 @@
 			console.log(this.state.beginDate);
 			if (this.state.beginDate.trim() == "") this.state.beginDate = "01012016";
 
-			console.log(this.state.searendDatechTerm);
+			console.log(this.state.endDate);
 			if (this.state.endDate.trim() == "") this.state.endDate = "10012016";
 
 			this.getSearchResults(this.state.searchTerm, this.state.beginDate, this.state.endDate);
@@ -21274,18 +21275,18 @@
 /* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var React = __webpack_require__(1);
 
 	var Results = React.createClass({
-	  displayName: "Results",
+	  displayName: 'Results',
 
 	  render: function render() {
 	    return React.createElement(
-	      "div",
+	      'div',
 	      null,
-	      console.log("Results: ", this.props.articles)
+	      this.props.articles
 	    );
 	  }
 	});
