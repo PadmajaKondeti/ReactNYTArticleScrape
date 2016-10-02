@@ -60,13 +60,13 @@ var Main = React.createClass({
 
 	handleClick: function(){
 		console.log(this.state.searchTerm);
-		if (this.state.searchTerm.trim() == "") this.state.searchTerm="news";
+		if (this.state.searchTerm.trim() == "") this.state.searchTerm="elections";
 			
 		console.log(this.state.beginDate);
 		if (this.state.beginDate.trim() == "") this.state.beginDate="01012016";
 			
 		console.log(this.state.searendDatechTerm);
-		if (this.state.endDate.trim() == "") this.state.endDate="01012016";
+		if (this.state.endDate.trim() == "") this.state.endDate="10012016";
 			
 		this.getSearchResults(this.state.searchTerm, this.state.beginDate, this.state.endDate);
 
@@ -77,6 +77,10 @@ var Main = React.createClass({
 		return(
 
 			<div className="container">
+				<div className="jumbotron">
+					<h2 className="text-center">New York Times Article Scrubber</h2>
+					<p className="text-center"><em>Search for and annotate article of interest!</em></p>
+				</div>
 				<div className="panel panel-default">
 					<div className="panel-heading">
 						<h3 className="panel-title text-center">Search</h3>
