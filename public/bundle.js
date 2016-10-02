@@ -19891,7 +19891,24 @@
 							'button',
 							{ type: 'button', className: 'btn btn-primary', onClick: this.handleClick },
 							'Submit'
-						),
+						)
+					)
+				),
+				React.createElement(
+					'div',
+					{ className: 'panel panel-default' },
+					React.createElement(
+						'div',
+						{ className: 'panel-heading' },
+						React.createElement(
+							'h3',
+							{ className: 'panel-title text-center' },
+							'Results'
+						)
+					),
+					React.createElement(
+						'div',
+						{ className: 'panel-body text-center' },
 						React.createElement(Results, { articles: this.state.results })
 					)
 				)

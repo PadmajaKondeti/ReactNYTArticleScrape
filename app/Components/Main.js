@@ -99,6 +99,14 @@ var Main = React.createClass({
 						
 						<button type="button" className="btn btn-primary" onClick={this.handleClick}>Submit</button>
 
+						
+					</div>
+				</div>
+				<div className="panel panel-default">
+					<div className="panel-heading">
+						<h3 className="panel-title text-center">Results</h3>
+					</div>
+					<div className="panel-body text-center">
 						<Results articles={this.state.results} />
 					</div>
 				</div>
