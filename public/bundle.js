@@ -19795,7 +19795,16 @@
 			var self = this;
 			axios.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + authKey + "&q=" + searchTerm + "&begin_date=" + beginDate + "&end_date=" + endDate).then(function (httpRes) {
 				//console.log(httpRes.data.response);
-				self.setState({ results: httpRes.data.response });
+				var queryArr = httpRes.data.response.docs;
+				var newResults = [];
+				for (var i = 0; i < queryArr.length; i++) {
+					newResults.push(queryArr[i]);
+				}
+
+				self.setState({
+					results: newResults
+				});
+				//self.setState({results: httpRes.data.response.docs});
 			}).catch(function (error) {
 
 				console.log('Error: ', error);

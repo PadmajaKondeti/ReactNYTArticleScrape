@@ -40,7 +40,16 @@ var Main = React.createClass({
 			+"&begin_date="+beginDate+"&end_date="+endDate)
 		.then(function(httpRes) {
 			//console.log(httpRes.data.response);
-			self.setState({results: httpRes.data.response});
+			var queryArr = httpRes.data.response.docs;
+            var newResults = [];
+            for(var i=0; i<queryArr.length; i++){
+              newResults.push(queryArr[i]);
+            }
+
+            self.setState({
+              results: newResults
+            })
+			//self.setState({results: httpRes.data.response.docs});
 
 		}).catch(function(error){
 			
@@ -48,6 +57,7 @@ var Main = React.createClass({
   	
   	});
 	},
+
 
 	handleChange: function(event){
     	console.log(event.target.value);
