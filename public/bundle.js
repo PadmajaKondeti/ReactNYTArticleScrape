@@ -19794,12 +19794,16 @@
 			var authKey = "b9f91d369ff59547cd47b931d8cbc56b:0:74623931";
 			var self = this;
 			axios.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + authKey + "&q=" + searchTerm + "&begin_date=" + beginDate + "&end_date=" + endDate).then(function (httpRes) {
-				//console.log(httpRes.data.response);
+				console.log(httpRes.data.response.docs);
 				var queryArr = httpRes.data.response.docs;
 				var newResults = [];
 				for (var i = 0; i < queryArr.length; i++) {
-					newResults.push(queryArr[i].web_url);
+					newResults.push({ id: i, pub_date: queryArr[i].pub_date, main: queryArr[i].headline.main });
 					//newResults = queryArr[0].web_url;
+					console.log(queryArr[i].headline.main);
+					console.log(queryArr[i].pub_date);
+					console.log(queryArr[i].section_name);
+					console.log(queryArr[i].web_url);
 				}
 
 				self.setState({
