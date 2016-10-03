@@ -2,7 +2,7 @@
 var React = require('react');
 var axios = require('axios');
 
-var Results = require('./children/Results');
+var Result = require('./children/Result');
 
 // This is the main component. It includes the banner and button.
 // Whenever you click the button it will communicate the click event to all other sub components.
@@ -39,21 +39,21 @@ var Main = React.createClass({
 		axios.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + authKey + "&q=" + searchTerm
 			+"&begin_date="+beginDate+"&end_date="+endDate)
 		.then(function(httpRes) {
-			console.log(httpRes.data.response.docs);
+			// console.log(httpRes.data.response.docs);
 			var queryArr = httpRes.data.response.docs;
-            var newResults = [];
+            //var newResults = [];
             for(var i=0; i<queryArr.length; i++){
-              newResults.push({id: i, pub_date: queryArr[i].pub_date, main: queryArr[i].headline.main});
+              self.state.results.push({id: i, web_url: queryArr[i].web_url, main: queryArr[i].headline.main});
               //newResults = queryArr[0].web_url;
-              	console.log(queryArr[i].headline.main);
-              	console.log(queryArr[i].pub_date);
-				console.log(queryArr[i].section_name);
-				console.log(queryArr[i].web_url);
+    //           	console.log(queryArr[i].headline.main);
+    //           	console.log(queryArr[i].pub_date);
+				// console.log(queryArr[i].section_name);
+				// console.log(queryArr[i].web_url);
               
             }
 
             self.setState({
-              results: newResults
+              results: self.state.results
             })
 			//self.setState({results: httpRes.data.response.docs});
 
@@ -75,13 +75,13 @@ var Main = React.createClass({
 	},
 
 	handleClick: function(){
-		console.log(this.state.searchTerm);
+		// console.log(this.state.searchTerm);
 		if (this.state.searchTerm.trim() == "") this.state.searchTerm="elections";
 			
-		console.log(this.state.beginDate);
+		// console.log(this.state.beginDate);
 		if (this.state.beginDate.trim() == "") this.state.beginDate="01012016";
 			
-		console.log(this.state.endDate);
+		// console.log(this.state.endDate);
 		if (this.state.endDate.trim() == "") this.state.endDate="10012016";
 			
 		this.getSearchResults(this.state.searchTerm, this.state.beginDate, this.state.endDate);
@@ -123,7 +123,13 @@ var Main = React.createClass({
 						<h3 className="panel-title text-center">Results</h3>
 					</div>
 					<div className="panel-body text-center">
-						<Results articles={this.state.results} />
+						<ul>
+							{this.state.results.map(function(result){
+								return(
+									<Result key={result.id} article={result} />
+								)
+							})}
+						</ul>
 					</div>
 				</div>
 				

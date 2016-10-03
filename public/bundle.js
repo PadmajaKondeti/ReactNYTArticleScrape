@@ -19760,7 +19760,7 @@
 	var React = __webpack_require__(1);
 	var axios = __webpack_require__(160);
 
-	var Results = __webpack_require__(182);
+	var Result = __webpack_require__(183);
 
 	// This is the main component. It includes the banner and button.
 	// Whenever you click the button it will communicate the click event to all other sub components.
@@ -19794,20 +19794,20 @@
 			var authKey = "b9f91d369ff59547cd47b931d8cbc56b:0:74623931";
 			var self = this;
 			axios.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + authKey + "&q=" + searchTerm + "&begin_date=" + beginDate + "&end_date=" + endDate).then(function (httpRes) {
-				console.log(httpRes.data.response.docs);
+				// console.log(httpRes.data.response.docs);
 				var queryArr = httpRes.data.response.docs;
-				var newResults = [];
+				//var newResults = [];
 				for (var i = 0; i < queryArr.length; i++) {
-					newResults.push({ id: i, pub_date: queryArr[i].pub_date, main: queryArr[i].headline.main });
+					self.state.results.push({ id: i, web_url: queryArr[i].web_url, main: queryArr[i].headline.main });
 					//newResults = queryArr[0].web_url;
-					console.log(queryArr[i].headline.main);
-					console.log(queryArr[i].pub_date);
-					console.log(queryArr[i].section_name);
-					console.log(queryArr[i].web_url);
+					//           	console.log(queryArr[i].headline.main);
+					//           	console.log(queryArr[i].pub_date);
+					// console.log(queryArr[i].section_name);
+					// console.log(queryArr[i].web_url);
 				}
 
 				self.setState({
-					results: newResults
+					results: self.state.results
 				});
 				//self.setState({results: httpRes.data.response.docs});
 			}).catch(function (error) {
@@ -19826,13 +19826,13 @@
 		},
 
 		handleClick: function handleClick() {
-			console.log(this.state.searchTerm);
+			// console.log(this.state.searchTerm);
 			if (this.state.searchTerm.trim() == "") this.state.searchTerm = "elections";
 
-			console.log(this.state.beginDate);
+			// console.log(this.state.beginDate);
 			if (this.state.beginDate.trim() == "") this.state.beginDate = "01012016";
 
-			console.log(this.state.endDate);
+			// console.log(this.state.endDate);
 			if (this.state.endDate.trim() == "") this.state.endDate = "10012016";
 
 			this.getSearchResults(this.state.searchTerm, this.state.beginDate, this.state.endDate);
@@ -19923,7 +19923,13 @@
 					React.createElement(
 						'div',
 						{ className: 'panel-body text-center' },
-						React.createElement(Results, { articles: this.state.results })
+						React.createElement(
+							'ul',
+							null,
+							this.state.results.map(function (result) {
+								return React.createElement(Result, { key: result.id, article: result });
+							})
+						)
 					)
 				)
 			);
@@ -21276,26 +21282,40 @@
 
 
 /***/ },
-/* 182 */
+/* 182 */,
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	var React = __webpack_require__(1);
 
-	var Results = React.createClass({
-	  displayName: 'Results',
+	var Result = React.createClass({
+	  displayName: "Result",
 
 	  render: function render() {
+	    // console.log("results component: ")
+	    // console.log(this.props.articles)
+	    // var articleItems= this.props.articles.map(function(article){
+	    // 	return <li>{article.main}</li>;
+	    // })
 	    return React.createElement(
-	      'div',
+	      "div",
 	      null,
-	      this.props.articles
+	      React.createElement(
+	        "li",
+	        null,
+	        React.createElement(
+	          "a",
+	          { href: this.props.article.web_url, target: "_blank" },
+	          this.props.article.main
+	        )
+	      )
 	    );
 	  }
 	});
 
-	module.exports = Results;
+	module.exports = Result;
 
 /***/ }
 /******/ ]);
