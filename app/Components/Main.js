@@ -43,7 +43,7 @@ var Main = React.createClass({
 			var queryArr = httpRes.data.response.docs;
             //var newResults = [];
             for(var i=0; i<queryArr.length; i++){
-              self.state.results.push({id: i, web_url: queryArr[i].web_url, main: queryArr[i].headline.main});
+              self.state.results.push({id: i, web_url: queryArr[i].web_url, main: queryArr[i].headline.main, pub_date: queryArr[i].pub_date, section_name: queryArr[i].section_name});
               //newResults = queryArr[0].web_url;
     //           	console.log(queryArr[i].headline.main);
     //           	console.log(queryArr[i].pub_date);
@@ -99,10 +99,10 @@ var Main = React.createClass({
 				</div>
 				<div className="panel panel-default">
 					<div className="panel-heading">
-						<h3 className="panel-title text-center">Search</h3>
+						<h3 className="panel-title text-center"><strong>Search</strong></h3>
 					</div>
 					<div className="panel-body text-center">
-						<h4 className=""><strong>Search Term</strong></h4>
+						<h4 className="">Search Term</h4>
 						<input type="text" className="form-control text-center" id="searchTerm" onChange= {this.handleChange} required/>
 						<br />
 		 				<h4 className="">Begin Date</h4>
@@ -120,13 +120,15 @@ var Main = React.createClass({
 				</div>
 				<div className="panel panel-default">
 					<div className="panel-heading">
-						<h3 className="panel-title text-center">Results</h3>
+						<h3 className="panel-title text-center"><strong>Results</strong></h3>
 					</div>
 					<div className="panel-body text-center">
 						<ul>
 							{this.state.results.map(function(result){
 								return(
-									<Result key={result.id} article={result} />
+									
+										<Result key={result.id} article={result} />
+									
 								)
 							})}
 						</ul>

@@ -19760,7 +19760,7 @@
 	var React = __webpack_require__(1);
 	var axios = __webpack_require__(160);
 
-	var Result = __webpack_require__(183);
+	var Result = __webpack_require__(182);
 
 	// This is the main component. It includes the banner and button.
 	// Whenever you click the button it will communicate the click event to all other sub components.
@@ -19798,7 +19798,7 @@
 				var queryArr = httpRes.data.response.docs;
 				//var newResults = [];
 				for (var i = 0; i < queryArr.length; i++) {
-					self.state.results.push({ id: i, web_url: queryArr[i].web_url, main: queryArr[i].headline.main });
+					self.state.results.push({ id: i, web_url: queryArr[i].web_url, main: queryArr[i].headline.main, pub_date: queryArr[i].pub_date, section_name: queryArr[i].section_name });
 					//newResults = queryArr[0].web_url;
 					//           	console.log(queryArr[i].headline.main);
 					//           	console.log(queryArr[i].pub_date);
@@ -19870,7 +19870,11 @@
 						React.createElement(
 							'h3',
 							{ className: 'panel-title text-center' },
-							'Search'
+							React.createElement(
+								'strong',
+								null,
+								'Search'
+							)
 						)
 					),
 					React.createElement(
@@ -19879,11 +19883,7 @@
 						React.createElement(
 							'h4',
 							{ className: '' },
-							React.createElement(
-								'strong',
-								null,
-								'Search Term'
-							)
+							'Search Term'
 						),
 						React.createElement('input', { type: 'text', className: 'form-control text-center', id: 'searchTerm', onChange: this.handleChange, required: true }),
 						React.createElement('br', null),
@@ -19917,7 +19917,11 @@
 						React.createElement(
 							'h3',
 							{ className: 'panel-title text-center' },
-							'Results'
+							React.createElement(
+								'strong',
+								null,
+								'Results'
+							)
 						)
 					),
 					React.createElement(
@@ -21282,8 +21286,7 @@
 
 
 /***/ },
-/* 182 */,
-/* 183 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -21299,16 +21302,42 @@
 	    // var articleItems= this.props.articles.map(function(article){
 	    // 	return <li>{article.main}</li>;
 	    // })
+
+	    // <li className="list-group-item">
+	    //            <h3>{this.props.title}</h3>
+	    //            <p>{this.props.lead}</p>
+	    //            <div className="btn-group pull-right">
+	    //              <button className="btn btn-primary" onClick={this.handleClick}>Save</button>
+	    //              <a className="btn btn-default" href={this.props.url} target="_blank">
+	    //                View Article
+	    //              </a>
+	    //            </div>
+	    //          <p>Date Published: {this.props.date}</p>
+	    //        </li>
 	    return React.createElement(
 	      "div",
 	      null,
 	      React.createElement(
 	        "li",
-	        null,
+	        { className: "list-group-item" },
 	        React.createElement(
 	          "a",
 	          { href: this.props.article.web_url, target: "_blank" },
 	          this.props.article.main
+	        ),
+	        React.createElement(
+	          "div",
+	          { className: "btn-group pull-right" },
+	          React.createElement(
+	            "button",
+	            { type: "button", className: "btn btn-primary" },
+	            "Save"
+	          )
+	        ),
+	        React.createElement(
+	          "p",
+	          null,
+	          this.props.article.pub_date
 	        )
 	      )
 	    );
